@@ -171,33 +171,37 @@
             
             <div class="bg-gray-800 rounded-2xl p-8 shadow-2xl">
                 <!-- 这里的邮箱我已经帮您配置成了 371164928@qq.com -->
-                <form action="https://formsubmit.co/371164928@qq.com" method="POST" class="space-y-6">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_subject" value="极简建站 - 新的询价留言!">
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">您的称呼</label>
-                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-gray-400" placeholder="王先生 / 李女士">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">电子邮箱</label>
-                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-gray-400" placeholder="your@email.com">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">联系电话 (选填)</label>
-                        <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-gray-400" placeholder="138xxxx0000">
-                    </div>
-                    
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2">需求简述</label>
-                        <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-gray-400" placeholder="请简单描述您想做一个什么样的网站..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg transition shadow-lg">发送咨询</button>
-                </form>
+                <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+    <!-- Web3Forms Access Key - 请在此替换您的真实 access key -->
+    <input type="hidden" name="access_key" value="9cb339c6-bc36-4a27-843e-f6f667ce2e94">
+    
+    <!-- 邮件标题，您可以自定义 -->
+    <input type="hidden" name="subject" value="极简建站 - 新的询价留言!">
+    <input type="hidden" name="from_name" value="极简建站">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">您的称呼</label>
+            <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-gray-400" placeholder="王先生 / 李女士">
+        </div>
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">电子邮箱</label>
+            <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-gray-400" placeholder="your@email.com">
+        </div>
+    </div>
+    
+    <div>
+        <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">联系电话 (选填)</label>
+        <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-gray-400" placeholder="138xxxx0000">
+    </div>
+    
+    <div>
+        <label for="message" class="block text-sm font-medium text-gray-300 mb-2">需求简述</label>
+        <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-gray-400" placeholder="请简单描述您想做一个什么样的网站..."></textarea>
+    </div>
+    
+    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg transition shadow-lg">发送咨询</button>
+</form>
             </div>
         </div>
     </section>
