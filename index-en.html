@@ -1,261 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimal Web - Cost-Effective WordPress & Static Sites</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Smooth scrolling */
-        html { scroll-behavior: smooth; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minimal Web — Cost-Effective WordPress & Static Sites</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+:root{
+  --bg:#f8f6f3;
+  --bg-alt:#2a2520;
+  --text:#1c1a17;
+  --text-secondary:#7a7368;
+  --text-on-dark:#e8e2d9;
+  --text-muted-on-dark:#9e9487;
+  --accent:#c4935a;
+  --accent-dark:#a07845;
+  --border:#e3ddd5;
+  --border-dark:#3d3731;
+  --white:#ffffff;
+  --font-serif:'Playfair Display',Georgia,serif;
+  --font-body:'Source Serif 4',Georgia,serif;
+  --font-sans:'DM Sans',Helvetica,Arial,sans-serif;
+  --max-w:1200px;
+  --pad:clamp(1.25rem,4vw,3rem);
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:400;font-size:1.0625rem;line-height:1.7;overflow-x:hidden}
+.container{max-width:var(--max-w);margin:0 auto;padding:0 var(--pad)}
+.section{padding:clamp(4rem,8vw,7rem) 0}
+.section-dark{background:var(--bg-alt);color:var(--text-on-dark)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:0 auto;max-width:var(--max-w);width:calc(100% - var(--pad)*2)}
+.fade-in{opacity:0;transform:translateY(1.5rem);transition:opacity .8s ease,transform .8s cubic-bezier(.22,1,.36,1)}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in-d1{transition-delay:.1s}.fade-in-d2{transition-delay:.2s}.fade-in-d3{transition-delay:.35s}.fade-in-d4{transition-delay:.5s}
+
+.masthead{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,246,243,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:border-color .3s}
+.masthead-scrolled{border-bottom-color:rgba(0,0,0,.08)}
+.masthead .container{display:flex;align-items:center;justify-content:space-between;height:4rem}
+.masthead-logo{font-family:var(--font-serif);font-size:1.35rem;font-weight:700;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+.masthead-logo em{font-style:italic;color:var(--accent);font-weight:400}
+.masthead-nav{display:flex;gap:2rem;align-items:center}
+.masthead-nav a{font-family:var(--font-sans);font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color .25s;position:relative}
+.masthead-nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width .35s ease}
+.masthead-nav a:hover{color:var(--text)}
+.masthead-nav a:hover::after{width:100%}
+.masthead-actions{display:flex;gap:1rem;align-items:center}
+.masthead-lang{font-family:var(--font-sans);font-size:.75rem;font-weight:500;letter-spacing:.04em;color:var(--text-secondary);text-decoration:none;display:flex;align-items:center;gap:4px;transition:color .25s}
+.masthead-lang:hover{color:var(--accent)}
+.masthead-lang svg{width:14px;height:14px}
+.masthead-cta{font-family:var(--font-sans);font-size:.78rem;font-weight:600;letter-spacing:.04em;color:var(--white);background:var(--text);padding:.55rem 1.3rem;text-decoration:none;transition:all .3s ease}
+.masthead-cta:hover{background:var(--accent)}
+.masthead-toggle{display:none;background:none;border:none;cursor:pointer;padding:4px;color:var(--text)}
+.masthead-toggle svg{width:22px;height:22px}
+
+.hero{padding:8rem 0 5rem;position:relative}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:3rem;background:var(--accent);opacity:.5}
+.hero .container{max-width:880px}
+.hero-kicker{font-family:var(--font-sans);font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+.hero h1{font-family:var(--font-serif);font-size:clamp(2.5rem,6vw,4.2rem);font-weight:700;line-height:1.12;letter-spacing:-.02em;margin-bottom:1.5rem}
+.hero h1 .accent{font-style:italic;color:var(--accent);font-weight:400}
+.hero-lead{font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--text-secondary);max-width:620px;line-height:1.8;margin-bottom:2.5rem}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{font-family:var(--font-sans);font-size:.8rem;font-weight:600;letter-spacing:.04em;text-decoration:none;padding:.75rem 2rem;transition:all .35s ease;display:inline-flex;align-items:center;gap:.5rem}
+.btn-primary{background:var(--text);color:var(--white)}.btn-primary:hover{background:var(--accent)}
+.btn-outline{border:1px solid var(--text);color:var(--text)}.btn-outline:hover{background:var(--text);color:var(--white)}
+.hero-line{width:3rem;height:1px;background:var(--accent);margin-top:.5rem}
+
+.features-header{margin-bottom:4rem;max-width:600px}
+.features-header .section-number{font-family:var(--font-sans);font-size:.7rem;font-weight:600;letter-spacing:.1em;color:var(--accent);margin-bottom:.75rem}
+.features-header h2{font-family:var(--font-serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;line-height:1.2;letter-spacing:-.01em}
+.features-header p{color:var(--text-secondary);margin-top:1rem;font-size:1.05rem}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border)}
+.feature-card{background:var(--bg);padding:3rem 2.5rem;position:relative;transition:all .45s ease}
+.feature-card:hover{background:var(--white)}
+.feature-card-num{font-family:var(--font-serif);font-size:3.5rem;font-weight:400;color:var(--accent);opacity:.25;line-height:1;margin-bottom:.25rem;font-style:italic}
+.feature-card h3{font-family:var(--font-serif);font-size:1.35rem;font-weight:600;margin-bottom:.75rem;letter-spacing:-.01em}
+.feature-card p{color:var(--text-secondary);font-size:.95rem;line-height:1.7}
+.feature-card .line{width:2rem;height:1px;background:var(--accent);margin:1.25rem 0}
+
+.pricing-header{text-align:center;margin-bottom:4.5rem}
+.pricing-header .section-number{font-family:var(--font-sans);font-size:.7rem;font-weight:600;letter-spacing:.1em;color:var(--accent);margin-bottom:.75rem}
+.pricing-header h2{font-family:var(--font-serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;letter-spacing:-.01em}
+.pricing-header p{color:var(--text-secondary);margin-top:.75rem}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:900px;margin:0 auto}
+.pricing-card{background:var(--white);border:1px solid var(--border);position:relative;transition:all .4s ease}
+.pricing-card:hover{box-shadow:0 20px 50px rgba(0,0,0,.06);transform:translateY(-4px)}
+.pricing-card-featured{border-color:var(--accent)}
+.pricing-card-featured .pricing-head{background:var(--accent);color:var(--white)}
+.pricing-badge{position:absolute;top:-1px;right:2rem;background:var(--accent);color:var(--white);font-family:var(--font-sans);font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;z-index:1}
+.pricing-head{padding:2.5rem 2.5rem 2rem;border-bottom:1px solid var(--border);text-align:center}
+.pricing-head-dark{background:var(--text);color:var(--white);border-color:var(--text)}
+.pricing-head-dark h3,.pricing-head-dark .price,.pricing-head-dark .price-desc{color:var(--white)!important}
+.pricing-head h3{font-family:var(--font-serif);font-size:1.4rem;font-weight:600;margin-bottom:.5rem}
+.price{font-family:var(--font-serif);font-size:3.2rem;font-weight:700;letter-spacing:-.02em;line-height:1}
+.price small{font-size:1rem;font-weight:400;color:var(--text-secondary);font-family:var(--font-body);opacity:.7}
+.pricing-head-dark .price small{color:rgba(255,255,255,.6)}
+.price-desc{font-size:.85rem;color:var(--text-secondary);margin-top:.5rem;font-family:var(--font-sans)}
+.pricing-body{padding:2.5rem}
+.pricing-body ul{list-style:none;display:flex;flex-direction:column;gap:1rem}
+.pricing-body ul li{font-size:.95rem;color:var(--text);display:flex;align-items:flex-start;gap:.75rem;line-height:1.5}
+.pricing-body ul li .icon{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-size:11px;font-weight:700}
+.pricing-body ul li .icon-check{background:var(--accent);color:var(--white)}
+.pricing-body ul li .icon-x{border:1px solid var(--border);color:var(--text-secondary)}
+.pricing-body .pricing-cta{display:block;text-align:center;margin-top:2.5rem;padding:.85rem;font-family:var(--font-sans);font-size:.8rem;font-weight:600;letter-spacing:.04em;text-decoration:none;transition:all .3s}
+.pricing-body .pricing-cta-dark{background:var(--text);color:var(--white)}.pricing-body .pricing-cta-dark:hover{background:var(--accent)}
+.pricing-body .pricing-cta-accent{background:var(--accent);color:var(--white)}.pricing-body .pricing-cta-accent:hover{background:var(--accent-dark)}
+.pricing-note{text-align:center;font-size:.78rem;color:var(--text-secondary);margin-top:2rem;font-family:var(--font-sans)}
+
+.portfolio-header{margin-bottom:4rem;text-align:center}
+.portfolio-header .section-number{font-family:var(--font-sans);font-size:.7rem;font-weight:600;letter-spacing:.1em;color:var(--accent);margin-bottom:.75rem}
+.portfolio-header h2{font-family:var(--font-serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;letter-spacing:-.01em}
+.portfolio-header p{color:var(--text-secondary);margin-top:.75rem}
+.portfolio-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.portfolio-card{text-decoration:none;color:inherit;display:block;transition:all .4s ease}
+.portfolio-card:hover .portfolio-img img{transform:scale(1.03)}
+.portfolio-card:hover .portfolio-title{color:var(--accent)}
+.portfolio-img{width:100%;aspect-ratio:16/10;overflow:hidden;background:var(--border);margin-bottom:1.5rem;position:relative}
+.portfolio-img img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.portfolio-label{font-family:var(--font-sans);font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}
+.portfolio-title{font-family:var(--font-serif);font-size:1.4rem;font-weight:600;transition:color .3s;letter-spacing:-.01em}
+.portfolio-desc{color:var(--text-secondary);font-size:.92rem;margin-top:.6rem;line-height:1.7}
+.portfolio-card .line{width:2rem;height:1px;background:var(--accent);margin:1.25rem 0}
+
+.contact-header{margin-bottom:3.5rem;text-align:center}
+.contact-header .section-number{font-family:var(--font-sans);font-size:.7rem;font-weight:600;letter-spacing:.1em;color:var(--accent);margin-bottom:.75rem}
+.contact-header h2{font-family:var(--font-serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;letter-spacing:-.01em}
+.contact-header p{color:var(--text-muted-on-dark);margin-top:.75rem}
+.contact-form-wrap{border:1px solid var(--border-dark);padding:3rem;max-width:680px;margin:0 auto}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.form-group{display:flex;flex-direction:column;gap:.5rem}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-family:var(--font-sans);font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text-on-dark)}
+.form-group input,.form-group textarea{background:transparent;border:1px solid var(--border-dark);padding:.9rem 1rem;color:var(--text-on-dark);font-family:var(--font-body);font-size:.95rem;transition:border-color .3s;outline:none}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--text-muted-on-dark);opacity:.6}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:120px}
+.btn-submit{width:100%;padding:1rem;background:var(--accent);color:var(--white);border:none;font-family:var(--font-sans);font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .35s;margin-top:.5rem}
+.btn-submit:hover{background:var(--accent-dark)}
+
+.site-footer{border-top:1px solid var(--border-dark);padding:2.5rem 0;text-align:center;font-family:var(--font-sans);font-size:.78rem;color:var(--text-muted-on-dark);letter-spacing:.02em}
+
+@media(max-width:768px){
+  .masthead-nav{position:fixed;top:4rem;left:0;right:0;background:var(--bg);flex-direction:column;gap:0;border-bottom:1px solid var(--border);max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .masthead-nav.open{max-height:350px}
+  .masthead-nav a{display:block;padding:.85rem var(--pad);width:100%;text-align:left;border-bottom:1px solid var(--border);font-size:.8rem}
+  .masthead-nav a:last-child{border-bottom:none}
+  .masthead-nav a::after{display:none}
+  .masthead-actions .masthead-cta{display:none}
+  .masthead-toggle{display:block}
+  .features-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .portfolio-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .hero{padding:6rem 0 3rem}
+  .contact-form-wrap{padding:2rem 1.5rem}
+  .feature-card,.pricing-head,.pricing-body{padding:2rem 1.5rem}
+}
+
+.scroll-indicator{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.4}
+.scroll-indicator span{display:block;width:1px;height:3rem;background:var(--text-secondary);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{transform:scaleY(.4);opacity:.3}50%{transform:scaleY(1);opacity:.8}}
+</style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+<body>
 
-    <!-- Header/Navigation -->
-    <header class="bg-white shadow-sm fixed w-full top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="text-2xl font-bold text-blue-600">Minimal Web</div>
-            <nav class="hidden md:flex space-x-8">
-                <a href="#hero" class="text-gray-600 hover:text-blue-600 transition">Home</a>
-                <a href="#features" class="text-gray-600 hover:text-blue-600 transition">Features</a>
-                <a href="#pricing" class="text-gray-600 hover:text-blue-600 transition">Pricing</a>
-                <a href="#portfolio" class="text-gray-600 hover:text-blue-600 transition">Portfolio</a>
-                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
-            </nav>
-            <div class="flex items-center space-x-4">
-                <a href="index.html" class="text-gray-500 hover:text-blue-600 text-sm font-medium transition flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
-                    中文
-                </a>
-                <a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition hidden sm:block">Free Quote</a>
-            </div>
+<header class="masthead" id="masthead">
+  <div class="container">
+    <a href="#" class="masthead-logo">Minimal <em>Web</em></a>
+    <nav class="masthead-nav" id="masthead-nav">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="masthead-actions">
+      <a href="index.html" class="masthead-lang">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>中文
+      </a>
+      <a href="#contact" class="masthead-cta">Free Quote</a>
+      <button class="masthead-toggle" id="masthead-toggle" aria-label="Menu">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero section" id="hero">
+  <div class="container">
+    <div class="fade-in">
+      <div class="hero-kicker">✦ Web Development</div>
+      <h1>Build Your Exclusive<br><span class="accent">Website</span> at an Ultra-Low Cost</h1>
+      <p class="hero-lead">Modern minimalist design &middot; Responsive layout &middot; Easy to manage. Helping small businesses and studios launch quickly and make their brand stand out online.</p>
+      <div class="hero-actions">
+        <a href="#pricing" class="btn btn-primary">View Packages →</a>
+        <a href="#portfolio" class="btn btn-outline">See Portfolio</a>
+      </div>
+      <div class="hero-line"></div>
+    </div>
+  </div>
+  <div class="scroll-indicator"><span></span></div>
+</section>
+
+<hr class="sep">
+
+<!-- Features -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="features-header fade-in">
+      <div class="section-number">01 / Core Advantages</div>
+      <h2>Why Choose Us?</h2>
+      <p>Providing professional, worry-free, and efficient web development services at an incredibly low price.</p>
+    </div>
+    <div class="features-grid fade-in fade-in-d1">
+      <div class="feature-card">
+        <div class="feature-card-num">01</div>
+        <div class="line"></div>
+        <h3>Unbeatable Pricing</h3>
+        <p>Breaking industry norms, starting at just ¥100, you can own a fully functional and beautifully designed corporate website.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-num">02</div>
+        <div class="line"></div>
+        <h3>Rapid Deployment</h3>
+        <p>Efficient development processes and mature frameworks allow for fast setup and configuration, getting you online in record time.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-num">03</div>
+        <div class="line"></div>
+        <h3>Perfect Mobile Adaptation</h3>
+        <p>Responsive design ensures perfect compatibility with phones, tablets, and desktop screens, offering the best browsing experience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- Pricing -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="pricing-header fade-in">
+      <div class="section-number">02 / Packages</div>
+      <h2>Value Packages</h2>
+      <p>The best websites for the lowest budget.</p>
+    </div>
+    <div class="pricing-grid fade-in fade-in-d1">
+      <!-- Static -->
+      <div class="pricing-card">
+        <div class="pricing-head pricing-head-dark">
+          <h3>Pure Static Site</h3>
+          <div class="price">¥100 <small>/ up</small></div>
+          <p class="price-desc">Simple, direct, ultra-lightweight</p>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="hero" class="pt-32 pb-20 bg-gradient-to-br from-blue-50 to-white text-center px-4">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
-                Build Your Exclusive <span class="text-blue-600">Website</span> at an Ultra-Low Cost
-            </h1>
-            <p class="text-xl text-gray-600 mb-10">
-                Modern minimalist design / Responsive layout / Easy to manage. Helping small businesses and studios launch quickly and make their brand stand out online.
-            </p>
-            <div class="flex justify-center space-x-4">
-                <a href="#pricing" class="bg-blue-600 text-white px-8 py-3 rounded-full font-medium hover:bg-blue-700 transition shadow-lg hover:shadow-xl">View Packages</a>
-                <a href="#portfolio" class="bg-white text-blue-600 border border-blue-600 px-8 py-3 rounded-full font-medium hover:bg-blue-50 transition shadow">See Portfolio</a>
-            </div>
+        <div class="pricing-body">
+          <ul>
+            <li><span class="icon icon-check">✓</span> Pure HTML/CSS Static Single Page</li>
+            <li><span class="icon icon-check">✓</span> Hero, Products & Contact Form</li>
+            <li><span class="icon icon-check">✓</span> Responsive (Mobile / Tablet / PC)</li>
+            <li><span class="icon icon-x">✕</span> No CMS (code changes required)</li>
+          </ul>
+          <a href="#contact" class="pricing-cta pricing-cta-dark">Get Started</a>
         </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Choose Us?</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Providing professional, worry-free, and efficient web development services at an incredibly low price.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="p-6 bg-gray-50 rounded-xl text-center hover:shadow-md transition">
-                    <div class="w-16 h-16 mx-auto bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Unbeatable Pricing</h3>
-                    <p class="text-gray-600">Breaking industry norms, starting at just ¥100, you can own a fully functional and beautifully designed corporate website.</p>
-                </div>
-                <!-- Feature 2 -->
-                <div class="p-6 bg-gray-50 rounded-xl text-center hover:shadow-md transition">
-                    <div class="w-16 h-16 mx-auto bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Rapid Deployment</h3>
-                    <p class="text-gray-600">Efficient development processes and mature frameworks allow for fast setup and configuration, getting you online in record time.</p>
-                </div>
-                <!-- Feature 3 -->
-                <div class="p-6 bg-gray-50 rounded-xl text-center hover:shadow-md transition">
-                    <div class="w-16 h-16 mx-auto bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Perfect Mobile Adaptation</h3>
-                    <p class="text-gray-600">Responsive design ensures perfect compatibility with phones, tablets, and desktop screens, offering the best browsing experience.</p>
-                </div>
-            </div>
+      </div>
+      <!-- WordPress -->
+      <div class="pricing-card pricing-card-featured">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-head">
+          <h3>Small Business Site</h3>
+          <div class="price">¥200 <small>/ up</small></div>
+          <p class="price-desc">Best value for core business needs</p>
         </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="py-20 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Value Packages</h2>
-                <p class="text-gray-600">The best websites for the lowest budget.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                
-                <!-- Package 1: Pure Static -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-blue-100 flex flex-col">
-                    <div class="bg-gray-700 p-6 text-center text-white">
-                        <h3 class="text-2xl font-bold mb-2">Pure Static Site</h3>
-                        <div class="text-5xl font-extrabold mb-2">¥100</div>
-                        <p class="text-gray-300">Simple, direct, and ultra-lightweight</p>
-                    </div>
-                    <div class="p-8 flex-grow flex flex-col justify-between">
-                        <ul class="space-y-4 mb-8">
-                            <li class="flex items-center text-gray-600">
-                                <svg class="w-5 h-5 text-green-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                Pure HTML/CSS Static Single Page
-                            </li>
-                            <li class="flex items-center text-gray-600">
-                                <svg class="w-5 h-5 text-green-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                Includes Hero, Products, and Contact forms
-                            </li>
-                            <li class="flex items-center text-gray-600">
-                                <svg class="w-5 h-5 text-green-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                Responsive Design (Mobile/Tablet/PC)
-                            </li>
-                            <li class="flex items-center text-gray-600">
-                                <svg class="w-5 h-5 text-red-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                No CMS (Requires code changes to update)
-                            </li>
-                        </ul>
-                        <div>
-                            <a href="#contact" class="block w-full text-center bg-gray-700 text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition">Get Started</a>
-                            <p class="text-xs text-gray-400 text-center mt-4">Note: Development fee only. Domain & Hosting not included.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Package 2: WordPress -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden border-2 border-blue-500 flex flex-col relative transform md:-translate-y-4">
-                    <!-- Badge -->
-                    <div class="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Most Popular</div>
-                    
-                    <div class="bg-blue-600 p-6 text-center text-white">
-                        <h3 class="text-2xl font-bold mb-2">Small Business Site</h3>
-                        <div class="text-5xl font-extrabold mb-2">¥200 <span class="text-lg font-normal text-blue-200">/up</span></div>
-                        <p class="text-blue-100">High cost-performance for foundational needs</p>
-                    </div>
-                    <div class="p-8 flex-grow flex flex-col justify-between">
-                        <ul class="space-y-4 mb-8">
-                            <li class="flex items-center text-gray-600">
-                                <svg class="w-5 h-5 text-green-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                Premium Corporate WordPress Theme
-                            </li>
-                            <li class="flex items-center text-gray-600">
-                                <svg class="w-5 h-5 text-green-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                Home + 5 Inner Pages (About, Services, etc)
-                            </li>
-                            <li class="flex items-center text-gray-600">
-                                <svg class="w-5 h-5 text-green-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                Responsive Design (Mobile/Tablet/PC)
-                            </li>
-                            <li class="flex items-center text-gray-600">
-                                <svg class="w-5 h-5 text-green-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                Powerful WordPress Backend
-                            </li>
-                            <li class="flex items-center text-gray-600">
-                                <svg class="w-5 h-5 text-green-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                Free Backend Usage Guidance
-                            </li>
-                        </ul>
-                        <div>
-                            <a href="#contact" class="block w-full text-center bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition shadow-md">Get Started</a>
-                            <p class="text-xs text-gray-400 text-center mt-4">Note: Development fee only. Domain & Hosting not included.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+        <div class="pricing-body">
+          <ul>
+            <li><span class="icon icon-check">✓</span> Premium WordPress Theme</li>
+            <li><span class="icon icon-check">✓</span> Home + 5 Inner Pages</li>
+            <li><span class="icon icon-check">✓</span> Responsive (Mobile / Tablet / PC)</li>
+            <li><span class="icon icon-check">✓</span> Powerful WordPress Backend</li>
+            <li><span class="icon icon-check">✓</span> Free Usage Guidance</li>
+          </ul>
+          <a href="#contact" class="pricing-cta pricing-cta-accent">Get Started</a>
         </div>
-    </section>
+      </div>
+    </div>
+    <p class="pricing-note">* Development fee only. Domain & hosting not included.</p>
+  </div>
+</section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Success Stories</h2>
-                <p class="text-gray-600">Beautiful websites we've built for various industries.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <!-- Case Study 1 -->
-                <a href="https://www.can-chem.com/" target="_blank" rel="noopener noreferrer" class="bg-gray-50 rounded-2xl overflow-hidden hover:shadow-xl transition group block">
-                    <div class="aspect-w-16 aspect-h-9 overflow-hidden border-b border-gray-200">
-                        <img src="./assets/canchem.webp" alt="CanChem Portfolio" class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-300">
-                    </div>
-                    <div class="p-6">
-                        <div class="text-sm text-blue-600 font-semibold mb-1">Global Trade Corporate Site</div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">CanChem</h3>
-                        <p class="text-gray-600">A professional B2B independent site for a CDMO nutritional ingredients manufacturer. International design style with clear product categorization, effectively acquiring overseas inquiries.</p>
-                    </div>
-                </a>
-                
-                <!-- Case Study 2 -->
-                <a href="https://www.junyansci.cn/" target="_blank" rel="noopener noreferrer" class="bg-gray-50 rounded-2xl overflow-hidden hover:shadow-xl transition group block">
-                    <div class="aspect-w-16 aspect-h-9 overflow-hidden border-b border-gray-200">
-                        <img src="./assets/junyanzhiyuan.webp" alt="Junyan Portfolio" class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-300">
-                    </div>
-                    <div class="p-6">
-                        <div class="text-sm text-blue-600 font-semibold mb-1">Domestic Corporate Site</div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Hangzhou Junyan</h3>
-                        <p class="text-gray-600">A professional and grand corporate image showcase site. Multi-section homepage layout comprehensively displays corporate strength, core business, and news updates.</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
+<hr class="sep">
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-900 text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
-                <p class="text-gray-400">Ready to start building your website? Fill out the form below and we will contact you within 24 hours.</p>
-            </div>
-            
-            <div class="bg-gray-800 rounded-2xl p-8 shadow-2xl">
-                <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
-                    <input type="hidden" name="access_key" value="9cb339c6-bc36-4a27-843e-f6f667ce2e94">
-                    
-                    <input type="hidden" name="subject" value="Minimal Web - New Inquiry!">
-                    <input type="hidden" name="from_name" value="Minimal Web">
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Your Name</label>
-                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-gray-400" placeholder="John Doe">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
-                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-gray-400" placeholder="your@email.com">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">Phone Number (Optional)</label>
-                        <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-gray-400" placeholder="+1 234 567 8900">
-                    </div>
-                    
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Project Requirements</label>
-                        <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 placeholder-gray-400" placeholder="Please briefly describe the kind of website you want to build..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg transition shadow-lg">Send Inquiry</button>
-                </form>
-            </div>
-        </div>
-    </section>
+<!-- Portfolio -->
+<section class="section" id="portfolio">
+  <div class="container">
+    <div class="portfolio-header fade-in">
+      <div class="section-number">03 / Portfolio</div>
+      <h2>Our Work</h2>
+      <p>Beautiful websites we've built for various industries.</p>
+    </div>
+    <div class="portfolio-grid fade-in fade-in-d1">
+      <a href="https://www.can-chem.com/" target="_blank" rel="noopener noreferrer" class="portfolio-card">
+        <div class="portfolio-img"><img src="./assets/canchem.webp" alt="CanChem Portfolio" loading="lazy"></div>
+        <div class="portfolio-label">Global Trade Corporate Site</div>
+        <h3 class="portfolio-title">CanChem</h3>
+        <div class="line"></div>
+        <p class="portfolio-desc">A professional B2B independent site for a CDMO nutritional ingredients manufacturer. International design with clear product categorization, effectively acquiring overseas inquiries.</p>
+      </a>
+      <a href="https://www.junyansci.cn/" target="_blank" rel="noopener noreferrer" class="portfolio-card">
+        <div class="portfolio-img"><img src="./assets/junyanzhiyuan.webp" alt="Junyan Portfolio" loading="lazy"></div>
+        <div class="portfolio-label">Domestic Corporate Site</div>
+        <h3 class="portfolio-title">Hangzhou Junyan</h3>
+        <div class="line"></div>
+        <p class="portfolio-desc">A professional corporate image showcase site. Multi-section layout comprehensively displays business strength, core services, and company news.</p>
+      </a>
+    </div>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="bg-black py-8 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
-            &copy; 2026 Minimal Web. All rights reserved. Crafting every website with care.
+<hr class="sep">
+
+<!-- Contact -->
+<section class="section section-dark" id="contact">
+  <div class="container">
+    <div class="contact-header fade-in">
+      <div class="section-number">04 / Get in Touch</div>
+      <h2>Let's Collaborate</h2>
+      <p>Ready to start building your website? Fill out the form below and we'll contact you within 24 hours.</p>
+    </div>
+    <div class="contact-form-wrap fade-in fade-in-d1">
+      <form action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="9cb339c6-bc36-4a27-843e-f6f667ce2e94">
+        <input type="hidden" name="subject" value="Minimal Web - New Inquiry!">
+        <input type="hidden" name="from_name" value="Minimal Web">
+        <div class="form-grid">
+          <div class="form-group"><label for="name">Your Name</label><input type="text" id="name" name="name" required placeholder="John Doe"></div>
+          <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" required placeholder="your@email.com"></div>
+          <div class="form-group full"><label for="phone">Phone Number <span style="font-weight:400;text-transform:none;color:var(--text-muted-on-dark)">(Optional)</span></label><input type="tel" id="phone" name="phone" placeholder="+1 234 567 8900"></div>
+          <div class="form-group full"><label for="message">Project Requirements</label><textarea id="message" name="message" rows="4" required placeholder="Please briefly describe the kind of website you want to build&hellip;"></textarea></div>
+          <div class="form-group full"><button type="submit" class="btn-submit">Send Inquiry</button></div>
         </div>
-    </footer>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">&copy; 2026 Minimal Web. All rights reserved. Crafting every website with care.</div>
+</footer>
+
+<script>
+document.getElementById('masthead-toggle').addEventListener('click',()=>document.getElementById('masthead-nav').classList.toggle('open'));
+document.querySelectorAll('#masthead-nav a').forEach(a=>a.addEventListener('click',()=>document.getElementById('masthead-nav').classList.remove('open')));
+window.addEventListener('scroll',()=>document.getElementById('masthead').classList.toggle('masthead-scrolled',window.scrollY>80),{passive:true});
+const io=new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-in').forEach(e=>io.observe(e));
+</script>
 
 </body>
 </html>
